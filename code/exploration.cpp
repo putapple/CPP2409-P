@@ -60,17 +60,17 @@ void battleEvent(int result, int& playerHP, int& enemyHP) {
         cout << "주사위 값: 1 - 대실패! 플레이어의 체력이 30%로 줄어듭니다." << endl;
     } else if (result >= 2 && result <= 7) {
         // 플레이어가 주사위 값만큼 데미지를 받음
-        int damage = result;
+        int damage = (14 - result) * 2;
         playerHP -= damage;
         cout << "주사위 값: " << result << " - 플레이어가 " << damage << "의 데미지를 받습니다." << endl;
     } else if (result >= 8 && result <= 13) {
         // 적이 주사위 값만큼 데미지를 받음
-        int damage = result;
-        enemyHP -= damage;
+        int damage = result * 2;
+        enemyHP -= damage ;
         cout << "주사위 값: " << result << " - 적이 " << damage << "의 데미지를 받습니다." << endl;
     } else if (result >= 14 && result <= 19) {
         // 적이 주사위 값만큼 데미지를 받음
-        int damage = result;
+        int damage = result * 2.5;
         enemyHP -= damage;
         cout << "주사위 값: " << result << " - 적이 " << damage << "의 데미지를 받습니다!" << endl;
     } else if (result == 20) {
@@ -93,7 +93,6 @@ void battleLoop() {
 
     while (continueBattle && playerHP > 0 && enemyHP > 0) {
         int result = rollD20();
-        cout << "주사위 값: " << result << endl;
 
         // 전투 이벤트 실행
         battleEvent(result, playerHP, enemyHP);
@@ -106,6 +105,7 @@ void battleLoop() {
             cout << "적이 쓰러졌습니다! 전투 승리!" << endl;
             break;
         }
+
 
         // 전투 계속 여부 묻기
         int choice;

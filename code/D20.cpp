@@ -42,16 +42,13 @@ int main() {
 
         // 탐색 이벤트 실행
         explorationEvent(result, eventType);
-
     } else if (eventChoice == 2) {
-        // 전투 이벤트 실행
         int playerHP = 100; // 플레이어 초기 체력
         int enemyHP = 100;  // 적 초기 체력
+        bool continueBattle = true;
 
-        while (playerHP > 0 && enemyHP > 0) {
+        while (continueBattle && playerHP > 0 && enemyHP > 0) {
             int result = rollD20();
-            cout << "주사위 값: " << result << endl;
-
             // 전투 이벤트 실행
             battleEvent(result, playerHP, enemyHP);
 
@@ -63,10 +60,17 @@ int main() {
                 cout << "적이 쓰러졌습니다! 전투 승리!" << endl;
                 break;
             }
-        }
-    } else {
-        cout << "잘못된 선택입니다. 프로그램을 종료합니다." << endl;
-    }
 
-    return 0;
+            // 전투 지속 여부 묻기
+            int choice;
+            cout << "전투를 더 지속하시겠습니까? (1: 예, 2: 아니오): ";
+            cin >> choice;
+            if (choice == 1) {
+                continueBattle = true;
+            } else if (choice == 2) {
+                continueBattle = false;
+                cout << "전투를 종료합니다." << endl;
+            }
+        }
+    }
 }
